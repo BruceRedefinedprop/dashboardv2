@@ -1,0 +1,45 @@
+/*Dashboard Headers*/
+
+.dshbrd-header {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 80%;
+}
+
+.group-1{
+    margin-bottom: 40px;
+    
+}
+
+.navbar-submenu {
+    text-align: center;
+    margin-left: 15px;
+    width:80%;
+}
+
+.navbar-submenu li {
+      float: none;
+      display: inline-block;
+    }
+
+
+/*Tab Styles*/
+    
+    
+#tenant {
+    display: none;
+}    
+
+
+#expenses {
+    display: none;
+} 
+
+#loan {
+    display: none;
+} 
+
+#dashboard {
+    display: none;
+}
+

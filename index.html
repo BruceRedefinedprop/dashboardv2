@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content "IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry's Tools | Real Etate Analysis</title>
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="js/date.js"></script>
+    <script type="text/javascript" src="js/amort.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="js/create_data.js"></script>
+    <script src="js/dshbd_metrics.js"></script>
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <!--Harry Top Level Menu bar and logo-->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">
+                    Harry's Tools
+                </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse navbar-right" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href=#>Project</a></li>
+                    <li><a href=#>Settings</a></li>
+                    <li><a href=#>Help</a></li>
+                    <li><a href=#>Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Dashboard Sub-menu-->
+    <div class="container-wrapper navbar-submenu">
+        <div class="container content-container">
+            <ul id="nav-submenu" class="nav nav-pills">
+                <li class=" nav-building"><a href="#">Building</a></li>
+                <li class="nav-tenants"><a href="#">Tenants</a></li>
+                <li class="nav-expenses"><a href="#">Expenses</a></li>
+                <li class="nav-loan"><a href="#">Financing</a></li>
+                <li class="nav-dashboard"><a href="#">Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--Building Info Form-->
+    <div class="container" id="building">
+
+        <h2 class="dshbrd-header">Building</h2>
+
+        <form class="form-horizontal">
+            <div class="group-1">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bldgName">Name:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="bldgName" placeholder="Enter Building Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bldgAddr">Address:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="bldgAddr" placeholder="Enter Street Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bldgCity">City:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="bldgCity" placeholder="Enter City" name="bldgCity">
+                    </div>
+                    <label class="control-label col-sm-1" for="bldgSt">St:</label>
+                    <div class="col-sm-1">
+                        <select class="form-control" id="bldgSt">
+                        <option <v></v>alue="AL">AL</option>
+                    	<option value="AK">AK</option>
+                    	<option value="AR">AR</option>	
+                    	<option value="AZ">AZ</option>
+                    	<option value="CA">CA</option>
+                    	<option value="CO">CO</option>
+                    	<option value="CT">CT</option>
+                    	<option value="DC">DC</option>
+                    	<option value="DE">DE</option>
+                    	<option value="FL">FL</option>
+                    	<option value="GA">GA</option>
+                    	<option value="HI">HI</option>
+                    	<option value="IA">IA</option>	
+                    	<option value="ID">ID</option>
+                    	<option value="IL">IL</option>
+                    	<option value="IN">IN</option>
+                    	<option value="KS">KS</option>
+                    	<option value="KY">KY</option>
+                    	<option value="LA">LA</option>
+                    	<option value="MA">MA</option>
+                    	<option value="MD">MD</option>
+                    	<option value="ME">ME</option>
+                    	<option value="MI">MI</option>
+                    	<option value="MN">MN</option>
+                    	<option value="MO">MO</option>	
+                    	<option value="MS">MS</option>
+                    	<option value="MT">MT</option>
+                    	<option value="NC">NC</option>	
+                    	<option value="NE">NE</option>
+                    	<option value="NH">NH</option>
+                    	<option value="NJ">NJ</option>
+                    	<option value="NM">NM</option>			
+                    	<option value="NV">NV</option>
+                    	<option value="NY">NY</option>
+                    	<option value="ND">ND</option>
+                    	<option value="OH">OH</option>
+                    	<option value="OK">OK</option>
+                    	<option value="OR">OR</option>
+                    	<option value="PA">PA</option>
+                    	<option value="RI">RI</option>
+                    	<option value="SC">SC</option>
+                    	<option value="SD">SD</option>
+                    	<option value="TN">TN</option>
+                    	<option value="TX">TX</option>
+                    	<option value="UT">UT</option>
+                    	<option value="VT">VT</option>
+                    	<option value="VA">VA</option>
+                    	<option value="WA">WA</option>
+                    	<option value="WI">WI</option>	
+                    	<option value="WV">WV</option>
+                    	<option value="WY">WY</option>
+                    </select>
+                    </div>
+                    <label class="control-label col-sm-2" for="bldgZip">Zip Code:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="bldgZip" placeholder="Enter Zip Code" pattern="[0-9]{5}">
+                    </div>
+                </div>
+            </div>
+            <div class="group-2">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bldgSize">Property Size:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="bldgSize" placeholder="Enter Size SF">
+                    </div>
+                    <label class="control-label col-sm-2" for="bldgClosing">Closing Costs:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="bldgClosing" placeholder="$ Closing Cost">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bldgPrice">Purchase Price:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="bldgPrice" placeholder="Enter Purchase Price">
+                    </div>
+                    <label class="control-label col-sm-2" for="bldgImprovements">Improvements:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="bldgImprovements" placeholder="$ Improvements">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bldgPurDate">Purchase Date:</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" id="bldgPurDate" placeholder="Enter Purchase Date">
+                    </div>
+                    <label class="control-label col-sm-2" for="bldgTermCap">Terminal Cap:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="bldgTermCap" placeholder="Enter Terminal Cap%">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <button id="resetbtn" type="button" class="btn btn-primary resetbtn">Reset</button>
+    </div>
+
+    <!--Tenant Info Form-->
+    <div class="container" id="tenant">
+        <h2 class="dshbrd-header">Tenants</h2>
+        <form class="form-horizontal">
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="tenantSize">Unit Size (SF):</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="tenantSize" placeholder="Enter Tenant Unit Size SF">
+                    </div>
+                    <label class="control-label col-sm-1" for="tenantList">Tenants</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="tenantListdpdwn">
+                        <!--<option value=0>Tenant 1</option>-->
+                        <!--<option value=1>Tenant 2</option>-->
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <div id="tenant-table"> </div>
+        </form>
+        <button id="resetbtn" type="button" class="btn btn-primary resetbtn">Reset</button>
+    </div>
+
+
+   
+
+    <!--Expense Info Form-->
+    <div class="container" id="expenses">
+        <h2 class="dshbrd-header">Expenses</h2>
+        <form class="form-horizontal">
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="expGrw">Expense Growth Rate %:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="expGrw" placeholder="Enter Expense Growth Rate %">
+                    </div>
+                </div>
+            </div>
+            <div id="exp-table">
+
+            </div>
+        </form>
+    </div>
+
+    <!--Financing Info Form-->
+    <div class="container" id="loan">
+        <h2 class="dshbrd-header">Financing</h2>
+        <form class="form-horizontal">
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="loanBank">Bank:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="loanBank" placeholder="Enter Bank Name">
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="loanAmount">Loan Amount:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="loanAmount" placeholder="Enter Loan Amount $">
+                    </div>
+                    <label class="control-label col-sm-2" for="loanTerm">Term (years):</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" id="loanTerm" placeholder="Enter Loan Term years">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="loanRate">Interest Rate %:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="loanRate" placeholder="Enter Interest Rate %">
+                    </div>
+                    <label class="control-label col-sm-2" for="loanAmort">Amortization Periods (years):</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" id="loanAmort" placeholder="Enter Amortization Period Years">
+                    </div>
+                </div>
+                <div class="form-group"> <label class="control-label col-sm-2" for="loanStart">Start Date:</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" id="loanStart" placeholder="Enter Start Date for Loan">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="KeyMarketRates"></div>
+        <br>
+    </div>
+
+    <!--Dashboard-->
+
+    <div id='dashboard'>
+        <div class="container" id="rentChart"></div>
+        <div class="container" id="cashChart"></div>
+        <div class="container" id="valChart"></div>
+    </div>
+
+
+    <!--Harry's Footer-->
+
+    <footer class="navbar-default navbar-bottom ">
+        <div class="container-fluid ">
+            <span><a href =#>Contact Info</a></span>
+            <span> | </span>
+            <span><a href =#>Company Info</a></span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js " integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=" anonymous "></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js " integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa " crossorigin="anonymous "></script>
+    <script src="js/editableTable.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+    <script type="text/javascript" src="js/dshbd_charts.js"></script>
+</body>
+
+</html>
