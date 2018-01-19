@@ -124,46 +124,64 @@ to build a yearRent array. then yearRent array months are summed up, with the re
 with result added to the modelRent array.
 */
 
-var modelRent = [];
+function buildModelRent() {
+    var modelRent = [];
 
-function getSum(total, num) {
-    return total + num;
+    function getSum(total, num) {
+        return total + num;
+    }
+    for (var i = 0; i < modelyears.length; i++) {
+        var yearRent = buildYearRent(modelyears[i].startDate);
+        modelRent[i] = yearRent.reduce(getSum);
+    }
+    return modelRent
 }
-for (var i = 0; i < modelyears.length; i++) {
-    var yearRent = buildYearRent(modelyears[i].startDate);
-    modelRent[i] = yearRent.reduce(getSum);
-}
+
+var modelRent = buildModelRent();
+
 
 /* 
 builds a yearExpense array, inceasing expense by 2% per year.
 hardcoded value.
 */
 
-var modelExpenses = [];
-var yearExpense = 0;
 
-for (x in expenses) {
-    yearExpense += expenses[x];
+function buildModelExpenses() {
+    var modelExpenses = [];
+    var yearExpense = 0;
+
+    for (x in expenses) {
+        yearExpense += expenses[x];
+    }
+
+    for (var i = 0; i < modelyears.length; i++) {
+        if (i == 0) {
+            modelExpenses[i] = yearExpense;
+        }
+        else {
+            modelExpenses[i] = modelExpenses[i - 1] * (1+expenses.growth);
+        }
+    }
+    return modelExpenses
 }
 
-for (var i = 0; i < modelyears.length; i++) {
-    if (i == 0) {
-        modelExpenses[i] = yearExpense;
-    }
-    else {
-        modelExpenses[i] = modelExpenses[i - 1] * 1.02;
-    }
-}
-
+var modelExpenses = buildModelExpenses();
 
 /*
 builds modelNOI array.  NOI - net operating income.  NOI = rents - expenses.
 */
 
-var modelNOI = [];
-for (var i = 0; i < modelyears.length; i++) {
-    modelNOI[i] = modelRent[i] - modelExpenses[i];
-}
+
+
+function buildModelNOI() {
+    var modelNOI = [];
+    for (var i = 0; i < modelyears.length; i++) {
+        modelNOI[i] = modelRent[i] - modelExpenses[i];
+    };
+    return modelNOI;
+};
+
+var modelNOI = buildModelNOI();
 
 /*  calculates:
         debt service using pmt() from amort.js
@@ -171,30 +189,45 @@ for (var i = 0; i < modelyears.length; i++) {
         equity in building = basis - loaned amount.
 */
 
-var debtService = pmt(divLoan.rate, divLoan.amort, divLoan.loan);
-var basis = bldgDiversey.purchasePrice + bldgDiversey.improvements;
-var equity = basis - divLoan.loan;
 
-// builds modelCashonCash array, how return you get for equity.
 
-var modelCashonCash = [];
-for (var i = 0; i < modelyears.length; i++) {
-    modelCashonCash[i] = (modelNOI[i] - debtService) / equity;
-}
+
+function buildCoC() {
+    var basis = current_building.purchasePrice + current_building.improvements;
+    var equity = basis - current_loan.loan;
+    var debtService = pmt(current_loan.rate, current_loan.amort, current_loan.loan);
+
+    // builds modelCashonCash array, how return you get for equity.
+
+    var modelCashonCash = [];
+    for (var i = 0; i < modelyears.length; i++) {
+        modelCashonCash[i] = ((modelNOI[i] + debtService) / equity) * 100;
+    }
+    return modelCashonCash;
+};
+
+var modelCashonCash = buildCoC();
+
 
 // build terminalVal array, potential selling price by year
 
-var terminalVal = [];
-var termCap = bldgDiversey.terminalCap;
-for (var i = 0; i < modelyears.length; i++) {
-    if (i == 0) {
-        terminalVal[i] = basis;
-    }
-    else {
-        terminalVal[i] = modelNOI[i] / termCap;
-    }
 
+
+function buildTerminalValue() {
+    var terminalVal = [];
+    var termCap = current_building.terminalCap;
+    var basis = current_building.purchasePrice + current_building.improvements
+    for (var i = 0; i < modelyears.length; i++) {
+        if (i == 0) {
+            
+            terminalVal[i] = basis;
+        }
+        else {
+            terminalVal[i] = modelNOI[i] / termCap;
+        }
+
+    }
+    return terminalVal;
 }
 
-
-
+var terminalVal = buildTerminalValue();

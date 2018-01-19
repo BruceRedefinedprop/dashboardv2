@@ -37,6 +37,17 @@ $('#nav-submenu li.nav-dashboard').click(function() {
     $('#expenses').css('display', 'none');
     $('#loan').css('display', 'none');
     $('#dashboard').css('display', 'block');
+    
+    modelyears = buildModelYears(MODEL_YEARS);
+    modelRent = buildModelRent();
+    modelExpenses = buildModelExpenses();
+    modelNOI = buildModelNOI();
+    modelCashonCash = buildCoC();
+    terminalVal = buildTerminalValue();
+    
+    drawRevChart();
+    drawCoCChart();
+    drawValueChart();
 });
 
 
@@ -118,7 +129,7 @@ $('#loanTerm').change(function() {
 
 $('#loanRate').change(function() {
     var rate = $('#loanRate').val();
-    current_loan.rate = (numeral(rate)._value) / 100;
+    current_loan.rate = (numeral(rate)._value) ;
     $('#loanRate').val(numeral(rate).format('0.0%'));
 });
 
