@@ -43,6 +43,8 @@ function cashArrayBuilder(header) {
 }
 
 
+ 
+
 
 function drawRevChart() {
   var rentChartArray = rentChartArrayBuilder(rentChartHeader);
@@ -60,6 +62,8 @@ function drawRevChart() {
 
   chart.draw(data, options);
 }
+
+ 
 
 // new chart 
 

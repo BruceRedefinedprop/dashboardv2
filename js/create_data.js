@@ -25,7 +25,10 @@ fuctions:
 var MODEL_YEARS = 5;   // sets the number of fiscal years in the financial model
 var current_building;
 var current_loan;
-var current_tenant;
+var baseline_tenants;
+var baseline_expenses;
+var baseline_loan;
+
  
  // The Building object defines basic information a particular property.
  
@@ -85,7 +88,7 @@ current_loan.bank = "Wintrust";
 current_loan.term = "10";
 current_loan.startDate = bldgDiversey.purchaseDate;
 
-
+baseline_loan = Object.assign({}, divLoan);
 
 
 function Tenant(name, unit_size, rents) {
@@ -225,7 +228,17 @@ function roundToTwo(num) {
 
 
 // Save copy of tenants for reset to baseline
-var baseline_tenants = Object.assign({}, tenants);
+ 
+
+baseline_tenants = [];
+for (var i = 0; i < tenants.length; i++) {
+    baseline_tenants[i] = new Tenant();
+    baseline_tenants[i].name = tenants[i].name;
+    baseline_tenants[i].unit_size = tenants[i].unit_size;
+    baseline_tenants[i].rents = tenants[i].rents;
+}
+
+
 
 
 // Create Expenses and hardcoded data.
@@ -240,17 +253,23 @@ function Expenses(tax, utilities, repairs, landscaping, management, leasing, gro
     this.growth = growth;
 } 
 
-{
-    var expenses = new Expenses();
-    expenses.tax = 100000;
-    expenses.utilities = 12500;
-    expenses.repairs = 12500
-    expenses.landscaping = 5000;
-    expenses.management = 7500;
-    expenses.leasing = 7500;
-    expenses.growth = .02;
-    
+
+function set_expense_data (exp) {
+    exp.tax = 100000;
+    exp.utilities = 12500;
+    exp.repairs = 12500
+    exp.landscaping = 5000;
+    exp.management = 7500;
+    exp.leasing = 7500;
+    exp.growth = .02;
 }
+ 
+    var expenses = new Expenses();
+    set_expense_data(expenses);
+    baseline_expenses = Object.assign({}, expenses);
+    
+ 
+
 
 
 

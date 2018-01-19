@@ -1,14 +1,10 @@
-
-
-
-
 $('#nav-submenu li.nav-building').click(function() {
     $('#building').css('display', 'block');
     $('#tenant').css('display', 'none');
     $('#expenses').css('display', 'none');
     $('#loan').css('display', 'none');
     $('#dashboard').css('display', 'none');
-    
+
 })
 
 $('#nav-submenu li.nav-tenants').click(function() {
@@ -52,16 +48,40 @@ $('#building .resetbtn').click(function() {
     backupBldg = new Building();
     current_building = Object.assign({}, bldgDiversey);
     setBuildingHtml(current_building);
-    
+
 });
 
-// $('#tenant .resetbtn').click(function() {
-//     tenants = Object.assign({}, baseline_tenants);
-//     $('#tenantListdpdwn option').remove()
-//     buildSelect('#tenantListdpdwn',tenants);
-//     // buildTenantRentTbl(0);
-// });
- 
+$('#tenant .resetbtn').click(function() {
+    for (var i = 0; i < tenants.length; i++) {
+        tenants[i].name = baseline_tenants[i].name;
+        tenants[i].unit_size = baseline_tenants[i].unit_size;
+        tenants[i].rents = baseline_tenants[i].rents;
+    }
+    $('#tenantListdpdwn option').remove()
+    buildSelect('#tenantListdpdwn', tenants);
+    buildTenantRentTbl(0);
+});
+
+$('#expenses .resetbtn').click(function() {
+    // expenses.growth = baseline_expenses.growth;
+    for (var property in baseline_expenses) {
+        console.log(property);
+        expenses[property] = baseline_expenses[property];
+    }
+    buildExpTab((expenses.growth));
+});
+
+$('#loan .resetbtn').click(function() {
+     
+    for (var property in baseline_loan) {
+        console.log(property);
+        divLoan[property] = baseline_loan[property];
+    }
+    setLoanHtml(divLoan);
+     
+});
+
+
 $('#tenantListdpdwn').change(function() {
     var tntIdx = Number($('#tenantListdpdwn').val());
     buildTenantRentTbl(tntIdx);
@@ -77,8 +97,8 @@ $('#tenantSize').change(function() {
 
 
 $('#expGrw').change(function() {
-    var rate = $('#expGrw').val(); 
-    expenses.growth= (numeral(rate)._value);
+    var rate = $('#expGrw').val();
+    expenses.growth = (numeral(rate)._value);
     $('#expGrw').val(numeral(rate).format('0.0%'));
 });
 
@@ -87,7 +107,7 @@ $('#loanBank').change(function() {
 });
 
 $('#loanAmount').change(function() {
-    var loan = $('#loanAmount').val() ;
+    var loan = $('#loanAmount').val();
     current_loan.loan = numeral(loan)._value;
     $('#loanAmount').val(numeral(loan).format('$0,0'));
 });
@@ -95,14 +115,14 @@ $('#loanAmount').change(function() {
 $('#loanTerm').change(function() {
     current_loan.term = $('#loanTerm').val();
 });
- 
+
 $('#loanRate').change(function() {
-    var rate = $('#loanRate').val(); 
-    current_loan.rate = (numeral(rate)._value)/100;
+    var rate = $('#loanRate').val();
+    current_loan.rate = (numeral(rate)._value) / 100;
     $('#loanRate').val(numeral(rate).format('0.0%'));
 });
 
- 
+
 
 $('#loanAmort').change(function() {
     current_loan.amort = $('#loanAmort').val();
@@ -141,25 +161,25 @@ $('#bldgSize').change(function() {
 });
 
 $('#bldgClosing').change(function() {
-    var vlu = $('#bldgClosing').val() ;
+    var vlu = $('#bldgClosing').val();
     current_building.closingCosts = numeral(vlu)._value;
     $('#bldgClosing').val(numeral(vlu).format('$0,0'));
 });
 
 $('#bldgPrice').change(function() {
-    var vlu = $('#bldgPrice').val() ;
+    var vlu = $('#bldgPrice').val();
     current_building.purchasePrice = numeral(vlu)._value;
     $('#bldgPrice').val(numeral(vlu).format('$0,0'));
 });
 
 $('#bldgImprovements').change(function() {
-    var vlu = $('#bldgImprovements').val() ;
+    var vlu = $('#bldgImprovements').val();
     current_building.improvements = numeral(vlu)._value;
     $('#bldgImprovements').val(numeral(vlu).format('$0,0'));
 });
 
 $('#bldgTermCap').change(function() {
-    var vlu = $('#bldgTermCap').val() ;
+    var vlu = $('#bldgTermCap').val();
     current_building.terminalCap = numeral(vlu)._value;
     $('#bldgTermCap').val(numeral(vlu).format('0,0.00%'));
 });
@@ -173,7 +193,7 @@ $('#bldgPurDate').change(function() {
 
 // Set values of HTML
 
-function setBuildingHtml (building) {
+function setBuildingHtml(building) {
     $('#bldgName').val(building.bldgName);
     $('#bldgAddr').val(building.stAddress);
     $('#bldgCity').val(building.city);
@@ -191,7 +211,7 @@ function setBuildingHtml (building) {
 
 
 
- 
+
 
 function setLoanHtml(loan) {
     $('#loanBank').val(loan.bank);
@@ -229,7 +249,7 @@ function rentArrayBuilder(bldgArray, header) {
 }
 
 setBuildingHtml(bldgDiversey);
-buildSelect('#tenantListdpdwn',tenants);
+buildSelect('#tenantListdpdwn', tenants);
 
 setLoanHtml(divLoan);
 
@@ -269,9 +289,9 @@ function expArrayBuilder(exp, header) {
     for (var property in exp) {
         var arrayRow = [];
         if (property != "growth") {
-           arrayRow[0] = property;
-           arrayRow[1] = numeral(exp[property]).format('$0,0.00');
-           expData.push(arrayRow); 
+            arrayRow[0] = property;
+            arrayRow[1] = numeral(exp[property]).format('$0,0.00');
+            expData.push(arrayRow);
         }
     }
     return expData;
@@ -287,11 +307,10 @@ var ExpTable = arrayToTable(expData, {
 
 $('#exp-table').append(ExpTable);
 
-function loadXMLDoc() { var e;
-    e = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP"), e.onreadystatechange = function() { 4 == e.readyState && 200 == e.status && (document.getElementById("KeyMarketRates").innerHTML = e.responseText) }, e.open("POST", "https://www.commercialloandirect.com/rates-api.php", !0), e.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), e.send("Prime=N&Libor30Day=N&Libor90Day=N&Libor6Month=N&Libor1Year=N&Swap3Year=N&Swap5Year=N&Swap7Year=N&Swap10Year=N&Treasury5Year=Y&Treasury7Year=Y&Treasury10Year=Y&SBA10Year=N&SBA20Year=N&Bordered=N&Center=N&RightCol=N&LeftCol=N&ColorText=000000&Width=50%&WidthCol1=050&WidthCol2=050&TbColor=FFFFFF&BdColor=000000") }
+function loadXMLDoc() {
+    var e;
+    e = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP"), e.onreadystatechange = function() { 4 == e.readyState && 200 == e.status && (document.getElementById("KeyMarketRates").innerHTML = e.responseText) }, e.open("POST", "https://www.commercialloandirect.com/rates-api.php", !0), e.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), e.send("Prime=N&Libor30Day=N&Libor90Day=N&Libor6Month=N&Libor1Year=N&Swap3Year=N&Swap5Year=N&Swap7Year=N&Swap10Year=N&Treasury5Year=Y&Treasury7Year=Y&Treasury10Year=Y&SBA10Year=N&SBA20Year=N&Bordered=N&Center=N&RightCol=N&LeftCol=N&ColorText=000000&Width=50%&WidthCol1=050&WidthCol2=050&TbColor=FFFFFF&BdColor=000000")
+}
 loadXMLDoc();
 
 // Build Function to Save Building Page and update all pages
-
-
-
