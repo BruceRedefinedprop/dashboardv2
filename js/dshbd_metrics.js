@@ -47,7 +47,7 @@ function buildModelYears(duration) {
         if (i == 0) {
 
             modelyears[0] = new Years;
-            modelyears[0].startDate = new Date(bldgDiversey.purchaseDate);
+            modelyears[0].startDate = new Date(current_building.purchaseDate);
             modelyears[0].startDate.setMonth(modelyears[0].startDate.getMonth() + 1, 1);
             modelyears[0].endDate = new Date(modelyears[0].startDate);
             modelyears[0].endDate.setFullYear(modelyears[0].endDate.getFullYear() + 1);

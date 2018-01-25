@@ -1,3 +1,46 @@
+/* The Dashboard module main program the updates to index.html to add and change 
+   information about a real estate investment including  details:
+
+ ++  about the building size and locaiton
+ ++  it's tenants and rent the they pay
+ ++  operating expenses
+ ++  financing
+ 
+ It also controls the refreshing of all performance metrics and creation of Dashboard 
+ graphs that display various performance metrics.
+ 
+ Key funtionality of this module is:
+ 
+ ++  controls for sub-menu
+ ++  enables the display various data contexts and initiates the buildng of dashboard graphs
+ ++  resets data on web page and the application to it's initial values defined create_data.js.
+ ++  when an input field on index.hmtl is changed, jquery is used recognize the change update
+     appropriate array and / or object.   This function also redisplays the data in formated text.
+ ++  functions to take stored values and display on each context tab
+
+*/
+
+
+
+
+/* __________________________________________________________________________
+  Sub-Menu controls -   the submenu controls the apparence of information on the 
+  user's web wapge.   The main application, right now, displays hard coded data and graphical 
+  dashboard.  The web page, index.htlm, when loaded builds  the html framework for each section.
+  Dashboard.js uses Jquery to load data into the webpage.   
+  
+  The submenu controls are used to switch between page contexts. The set of tabs for building, tenants,
+  expenses and financing control the display of data for each context JQuery controls are used to 
+  show and hide each appropriate section of the index.html page.
+  
+  When dashboard tab is selected, key performance metrics are updated based ony data changes 
+  and graphs dynamically created.  The peformance metrics are defined and calcualted using functions from
+  dsshbd_metrics.js.  The graphs are generated using functions dskbd_charts.js.
+ _______________________________________________________________________________
+*/
+
+// displays the building context, hides all others
+
 $('#nav-submenu li.nav-building').click(function() {
     $('#building').css('display', 'block');
     $('#tenant').css('display', 'none');
@@ -7,6 +50,9 @@ $('#nav-submenu li.nav-building').click(function() {
 
 })
 
+
+// diplays the tenant context, hides all other.
+
 $('#nav-submenu li.nav-tenants').click(function() {
     $('#building').css('display', 'none');
     $('#tenant').css('display', 'block');
@@ -14,6 +60,8 @@ $('#nav-submenu li.nav-tenants').click(function() {
     $('#loan').css('display', 'none');
     $('#dashboard').css('display', 'none');
 })
+
+// diplays the expenses context, hides all other.
 
 $('#nav-submenu li.nav-expenses').click(function() {
     $('#building').css('display', 'none');
@@ -23,6 +71,9 @@ $('#nav-submenu li.nav-expenses').click(function() {
     $('#dashboard').css('display', 'none');
 })
 
+
+// diplays the loan context, hides all other.
+
 $('#nav-submenu li.nav-loan').click(function() {
     $('#building').css('display', 'none');
     $('#tenant').css('display', 'none');
@@ -30,6 +81,14 @@ $('#nav-submenu li.nav-loan').click(function() {
     $('#loan').css('display', 'block');
     $('#dashboard').css('display', 'none');
 })
+
+/*
+set up event listenerns for the tab button is clicked.  When the event is fired,  
+the selected dashboard context is displayed and hides all others.
+rebuild summary data arrays based on user generated changes to the data.
+The summary data arrays and functions used to update these arrays are defined in dshbd_metrics.js
+finally graphs are generated using frunctions draw... from dshbd_charts.js.
+*/
 
 $('#nav-submenu li.nav-dashboard').click(function() {
     $('#building').css('display', 'none');
@@ -51,9 +110,24 @@ $('#nav-submenu li.nav-dashboard').click(function() {
 });
 
 
-
+/*
+___________________________________________________
+Each of the data on the index.html page (building, tenants, expenses and financing) has
+reset buttons that for a particular context restores initial data defined in create_data.js.  
+just for that context.  Right now that initial data values are hardcoded, but will mostly likely
+become dyanamically loaded from database in future versions of this program and later in the course.
+_____________________________________________________
+*/
 
 // buildTenantRentTbl(0);
+
+/*  
+Resets building data to original state. 
+A copy of the hardcode data for the buildng, bldgDiversey (defined in create_data.js)
+is created and data reset using setBuildingHtml() defined in this module.  This code can placed
+here because function hoisting.  Also, the set button won't be pressed until the entire program
+is loaded anyway.
+*/
 
 $('#building .resetbtn').click(function() {
     backupBldg = new Building();
@@ -61,6 +135,15 @@ $('#building .resetbtn').click(function() {
     setBuildingHtml(current_building);
 
 });
+
+/*
+Resets tenant data to original state.   tenants is an array, while each array
+element is tenants ojbect.    The index.html has a dropdown box of all tenants that is 
+used to display that tenant's rent table.   Jquery is used to first clear that html select box
+then buildSelect function is used to rebuild select box.  In the future, their will a function to
+add new tenants, so the select box will need to be repopulated. The buildSelect function is defined 
+editableTable.js.
+*/
 
 $('#tenant .resetbtn').click(function() {
     for (var i = 0; i < tenants.length; i++) {
@@ -73,6 +156,13 @@ $('#tenant .resetbtn').click(function() {
     buildTenantRentTbl(0);
 });
 
+/*
+The current expenses object properties are reset to initial values
+and buildExpTab function updates the htlm.    Note that only expenses growth
+property can be edited.  In the future table will be editable and new expenses will be able
+to added, deleted or their names changed.
+*/
+
 $('#expenses .resetbtn').click(function() {
     // expenses.growth = baseline_expenses.growth;
     for (var property in baseline_expenses) {
@@ -81,6 +171,8 @@ $('#expenses .resetbtn').click(function() {
     }
     buildExpTab((expenses.growth));
 });
+
+// resets loan data and rebuilds that section of the index.html.
 
 $('#loan .resetbtn').click(function() {
      
@@ -92,11 +184,25 @@ $('#loan .resetbtn').click(function() {
      
 });
 
+/*
+---------------------------------------------------------------
+For input on the index.html, event handlers are created that fire when that field is changed.
+In order to ensure input field results are diplayed in proper format  such as commas for
+large numbers and currency with comma and $ sign, all input file are text and numeral.js and data.js are used 
+to format data as a strings for display and convert the input values to back to numbers and dates.
+________________________________________________________________
+*/
+
+// On tenant tab, when a tenant is selected the rent table is for that tenant is created.
+// buidTenantRentTbl function is defined below.
 
 $('#tenantListdpdwn').change(function() {
     var tntIdx = Number($('#tenantListdpdwn').val());
     buildTenantRentTbl(tntIdx);
 });
+
+// on tenant tab, on a change, the tenant unit value is saved.
+// and the display text is reformated.  
 
 $('#tenantSize').change(function() {
     var tntIdx = Number($('#tenantListdpdwn').val());
@@ -105,7 +211,8 @@ $('#tenantSize').change(function() {
     $('#tenantSize').val(numeral(size).format('0,0'));
 });
 
-
+// on the expense tab, on a change, the new expanses growth rate is
+//stored and display text is reformated to display as a %
 
 $('#expGrw').change(function() {
     var rate = $('#expGrw').val();
@@ -113,9 +220,15 @@ $('#expGrw').change(function() {
     $('#expGrw').val(numeral(rate).format('0.0%'));
 });
 
+// on the loan tab, on a change, the new bank who has provided financing  is
+//stored.
+
 $('#loanBank').change(function() {
     current_loan.bank = $('#loanBank').val();
 });
+
+// on the loan tab, on a change, the new loan value  is
+//stored and display text is reformated to display as a currency.
 
 $('#loanAmount').change(function() {
     var loan = $('#loanAmount').val();
@@ -123,9 +236,15 @@ $('#loanAmount').change(function() {
     $('#loanAmount').val(numeral(loan).format('$0,0'));
 });
 
+// on the loan tab, on a change, the new loan term in years is
+//stored.
+
 $('#loanTerm').change(function() {
     current_loan.term = $('#loanTerm').val();
 });
+
+// on the loan tab, on a change, the new loan interest rate  is
+//stored and display text is reformated to display as a percentage.
 
 $('#loanRate').change(function() {
     var rate = $('#loanRate').val();
@@ -133,17 +252,22 @@ $('#loanRate').change(function() {
     $('#loanRate').val(numeral(rate).format('0.0%'));
 });
 
-
+// on the loan tab, on a change, the new loan amortization period in years is
+//stored.
 
 $('#loanAmort').change(function() {
     current_loan.amort = $('#loanAmort').val();
 });
 
-loanStart
+ // on the loan tab, on a change, the new loan start date  is
+//stored.
 
 $('#loanStart').change(function() {
     current_loan.startDate = $('#loanStart').val();
 });
+
+// on the building tab, on a change, the new building name   is
+//stored.
 
 $('#bldgName').change(function() {
     current_building.bldgName = $('#bldgName').val();
@@ -153,17 +277,28 @@ $('#bldgAddr').change(function() {
     current_building.stAddress = $('#bldgAddr').val();
 });
 
+// on the building tab, on a change, the new building street address   is
+//stored.
+
 $('#bldgCity').change(function() {
     current_building.city = $('#bldgCity').val();
 });
+
+// on the building tab, on a change, the new building state is stored.
+// needs to be uppercase.
 
 $('#bldgSt').change(function() {
     current_building.state = $('#bldgSt').val().toUpperCase();
 });
 
+// on the building tab, on a change, the new building state is stored.
+
 $('#bldgZip').change(function() {
     current_building.zip = $('#bldgZip').val();
 });
+
+// on the building tab, on a change, the new building size is stored.
+// number is convered to text and formated.
 
 $('#bldgSize').change(function() {
     var size = $('#bldgSize').val();
@@ -171,11 +306,18 @@ $('#bldgSize').change(function() {
     $('#bldgSize').val(numeral(size).format('0,0'));
 });
 
+// on the building tab, on a change, the new closing cost is stored.
+// number is convered to text and formated as currency.
+
 $('#bldgClosing').change(function() {
     var vlu = $('#bldgClosing').val();
     current_building.closingCosts = numeral(vlu)._value;
     $('#bldgClosing').val(numeral(vlu).format('$0,0'));
 });
+
+// on the building tab, on a change, the new purchase price is stored.
+// number is convered to text and formated as currency.
+
 
 $('#bldgPrice').change(function() {
     var vlu = $('#bldgPrice').val();
@@ -183,11 +325,17 @@ $('#bldgPrice').change(function() {
     $('#bldgPrice').val(numeral(vlu).format('$0,0'));
 });
 
+// on the building tab, on a change, the new improvements costs is stored.
+// number is convered to text and formated as currency.
+
 $('#bldgImprovements').change(function() {
     var vlu = $('#bldgImprovements').val();
     current_building.improvements = numeral(vlu)._value;
     $('#bldgImprovements').val(numeral(vlu).format('$0,0'));
 });
+
+// on the building tab, on a change, the new terminal cap rate is stored.
+// number is convered to text and formated as percentage.
 
 $('#bldgTermCap').change(function() {
     var vlu = $('#bldgTermCap').val();
@@ -195,14 +343,33 @@ $('#bldgTermCap').change(function() {
     $('#bldgTermCap').val(numeral(vlu).format('0,0.00%'));
 });
 
+// on the building tab, on a change, the new building purchase date is stored.
+
 $('#bldgPurDate').change(function() {
     current_building.purchaseDate = $('#bldgPurDate').val();
 });
 
+/*
+------------------------------------------------------------------
+The setxxx group of functions accept object and uses Jquery to set the values
+various of input field and built out tables on the both Tenant and Expense tabs.
+
+The key functions are:
+
+ + setBuildingHtml(building) 
+ + setLoanHtml(loan)
+ + dt_formater(dateText)
+ + rentArrayBuilder(bldgArray, header)
+
+-------------------------------------------------------------------
+*/
 
 
-
-// Set values of HTML
+/*
+accepts a buuilding object and sets the value on the building tab.  Numeral.js
+is used to format currency and large numbers and then sets those numbers as text.
+The dt_formater() takes a date and converts in a format suitable for date object.
+*/
 
 function setBuildingHtml(building) {
     $('#bldgName').val(building.bldgName);
@@ -219,7 +386,10 @@ function setBuildingHtml(building) {
     $('#bldgPurDate').val(dateSetter);
 }
 
+/* 
+accepts a loan object and sets value of input fields on the laon tab.
 
+*/
 
 
 
@@ -234,7 +404,13 @@ function setLoanHtml(loan) {
     $('#loanStart').val(dateSetter);
 }
 
+/* 
+dt_formater accepts date as a text field, create a data object, 
+It uses the date object to create text that is formated in format
+that both Date.js and javascript will accept and be able to easily convert
+to date object.
 
+*/
 
 function dt_formater(dateText) {
     var date = new Date(dateText);
@@ -243,6 +419,17 @@ function dt_formater(dateText) {
     var formateddate = date.getFullYear() + "-" + (month) + "-" + (day);
     return formateddate;
 }
+
+/*
+rentArrayBuilder() is a helper function to rentArrayBuilder(). The tenant object includes an rent array. 
+RentArrayBuilder accepts tenant object and header array for the rent table and creates array 
+for header at 0 index and continues add array elements by creating a two dimensional array where 
+the first dimension will correspond to rental period and second dimension is array of rent's 
+start date, end date, monthly rent, annualized rent and rent per SF.  The returns array.
+
+RentArrayBuilder adds the rent table to index.html tenant tab. 
+*/
+
 
 function rentArrayBuilder(bldgArray, header) {
     var data = [];
@@ -258,11 +445,6 @@ function rentArrayBuilder(bldgArray, header) {
     }
     return data;
 }
-
-setBuildingHtml(bldgDiversey);
-buildSelect('#tenantListdpdwn', tenants);
-
-setLoanHtml(divLoan);
 
 
 
@@ -291,7 +473,7 @@ function buildExpTab(exp) {
     $('#expGrw').val(numeral(exp).format('0.0%'));
 }
 
-buildExpTab((expenses.growth));
+
 
 
 function expArrayBuilder(exp, header) {
@@ -311,10 +493,19 @@ function expArrayBuilder(exp, header) {
 var expHeader = ["Expense", "Amount"];
 var expData = expArrayBuilder(expenses, expHeader);
 
+
+
+
+setBuildingHtml(bldgDiversey);
+buildSelect('#tenantListdpdwn', tenants);
+buildExpTab((expenses.growth));
+setLoanHtml(divLoan);
+
 var ExpTable = arrayToTable(expData, {
     thead: true,
     attrs: { class: 'table' }
 })
+
 
 $('#exp-table').append(ExpTable);
 
