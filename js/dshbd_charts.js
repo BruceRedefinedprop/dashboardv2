@@ -1,18 +1,40 @@
+/*
+dshbd_charts.js use Google Charts api to build bar and lines charts for the dashboard tab.
+
+This module generate three charts 
+
++ revenue, expense and NOI (net operating income) line chart that defined financial
+  result for the property calculated in dshbd_metrics.js.   NOI is revenue - expenses.
+  
++ cash-on-cash bar chart that takes result calculated in dshbd_metrics.js and displays the
+  results.  Cash-on-cash = (NOI - debt service) / (building cost + improvements)
+
++ terminal value bar chart that does the same thing, using terminal value calculation of
+  NOI / terminal cap rate.  The terminal cap rate is defined on building tab.
+  
+All charts dynamically update as inputs on various tabs are changed.
+
+*/
+
+// load google charts and callback. 
 google.charts.load('current', { 'packages': ['corechart'] });
+
+//callback for revenue chart
 google.charts.setOnLoadCallback(drawRevChart);
 
-// draw cash on cash chart
+// callback for cash on cash chart
 google.charts.setOnLoadCallback(drawCoCChart);
 
-// draw terminal value chart
+// callback for terminal value chart
 google.charts.setOnLoadCallback(drawValueChart);
 
 
-// Build line of Rent, NOI, Expenses
+// set up headers of for Revenue line chart.  Year is on X axis and
+// Rent, NOI and expenses are separte Y axis lines.
 
 rentChartHeader = ['Year', 'Rent', 'NOI', 'Expenses'];
 
-
+//  build an array that is used by google charts to draw the chart.
 function rentChartArrayBuilder(header) {
   var chartData = [];
   chartData.push(header);
@@ -27,6 +49,8 @@ function rentChartArrayBuilder(header) {
   }
   return chartData;
 }
+
+// build an array header and array used google charts to build cash-on-cash bar chart.
 
 cashChartHeader =['Year','Cash-on-Cash %']
 
@@ -43,7 +67,7 @@ function cashArrayBuilder(header) {
 }
 
 
- 
+ // Using Google Chart recommended template code, draw the Revenue line chart.
 
 
 function drawRevChart() {
@@ -65,7 +89,7 @@ function drawRevChart() {
 
  
 
-// new chart 
+// draw the Cash-on-cash bar chart.
 
 
 function drawCoCChart() {
@@ -86,7 +110,8 @@ function drawCoCChart() {
 }
 
 
-//new chart  value
+//set up the bar chart header (x & y axis ) and data array for
+// temrinal value bar chart.
 
 
 
@@ -105,6 +130,7 @@ function ValueArrayBuilder(header) {
   return chartData;
 }
 
+//draw the terminal value bar chart.
 
 function drawValueChart() {
   var ValChartArray = ValueArrayBuilder(ValChartHeader);

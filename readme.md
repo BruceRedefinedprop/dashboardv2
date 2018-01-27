@@ -9,77 +9,53 @@ expenses and expected economic return over a five-year period.
 
 #Application organization
 
-So far, I am at the beginning of the development process.  To date,   I have built the dataset and 
-tools to convert the raw data such as building size, tenants and lease into the specified 
-financial metrics to measure the investment's performance.
+The appliation is designed to fit into the Harry Tools landing page, https://github.com/BruceRedefinedprop/harrystools-proofofconcent
 
-The initial page, build_data_store.html is a very basic page who's purpose is to enable 
-the application run my javascript programs.
+The program is organized into a three parts:
 
-The 'create_data.js' module  loads the hard coded data.  It creates building, tenant, lease and
-expenses objects and sets as a constant, the length of the financial model.   This modules
-also includes stubs for storing and retrieving objects to the local browser's storage.  While
-I have tested the local storage functions in an earlier version, the code needs to be changed
-to accomodate the new objects  created (after I tested the code) and may be moved to it's own javascript 
-that is loaded at the bottom of the html page, so that all objects are created and 
-the hard coded data is loaded first.
+* The main HTML Page
+* custom javascript modules
+* open source javascript libraries and API's.
+ 
 
-The 'dshbd_metrics.js' processes the hard coded data to build arrays for the model year and 
-for each model year - the rent, expenses, NOI (net operating income), cash-on-cash, and 
-the property's potential sale price (terminal value).  This data will be used by Dashboard page as
-the base data it's graphs and tables. (which is not created yet).
+## index.html - the Main page
 
-The model year is hard coded to a five year period, but the code could accomodate any
-number of years.   The model year starts at the first day of month right after the property's
-purchase date, which is defined in the building object. This date can be any calendar data and the application 
-sets the start date to first day on the next month and the end date for the fiscal year, a year later.
+The main HTML page, index.html is framed by Harry Tools theme developed in the earlier milestone
+project with the main menu on the top right of project, settings, help and signout 
+are stubs reserved for future use.  The signout table does point back to the Harry's proof of concept
+webpage https://harrys-landingpage-bruceharrison.c9users.io/index.html.
 
-To determine the rent, 'dshbd_metrics.js' first builds an array of the rent for each month of specific fiscal
-year and sums that array.  The result is then added to array of rents by fiscal year.
+Then further down the page, there are five buttons that used to navigate through the views, 
+which I will loosely refer to as tabs.
 
-For the expenses, we examine the expense object, sum up all the expenses in year 1
-and increase the expenses for each year by 2%.  In reality, expense growth can vary by
-category and a more robust code will be developed in the future.  Right now, I think
-this approach is ok for the class.
+The five views are:
 
-We then build the arrays for NOI, cash-on-cash and terminal value using straight forward
-math.   These arrays are of course aligned up by fiscal year.  
+### The building Tab
 
-* NOI = rent - expenses   
-* cash-on-cash = NOI - debt service / equity   --> equity = buidling basis - loan.
-* terminal value = NOI / cap rate
+The building tab defined information about the specific property being studies such as name,
+address, size, cost and terminal value cap rate.  All input field are editable and inputs,
+except purchase date, are text fields and Javascript in dashboard.js is used to convert the text
+to required numbers and then back to formated text to improve reability.  Numeral.js, open source
+library is used to help with this task.
 
-The debt service was calculated using data for the loan object and 'amort.js' function.   
-'amort.js  is an open source loan calculator.  The result was tested  against similar
-equatin in MS Excel.
-
-The 'date.js' script is also open source program and I used it to compare dates and add time 
-to others while building the rent arrays.   It made the data math easier.
+The date fields, depending on browser will offer a datapicker.  Unfortuantely, 
+datepicker is not available for Safari or IE.  In a future, the program can be improved by
+using Jquery UI's datapicker function enchance Safari and IE limitiations.
 
 
-# Testing approach
+### The Tenant Tab
 
-It appears that in c9, I need to run javascripts throught the browser and I have yet to
-mastered the use of breakpoints and the ability in the IDE to test or view values.  (This is
-much more straight-forward when writing Python in Pycharm.) I was hoping the c9 had it's JVM interperter.
+The tenant tab display information the tenant such as name, amount of space rented and 
+rent table.  It features  a select box that let's the user switch between tenants.
+I hope in future projects that I'll given the opportunity to expand on this tab by
+being able to tenant and rent tables and edit that data as necessary. 
 
-So to test my javascript program, I would run the html and use Google Chrome Inspect to test the values of the 
-various variables and arrays.   To make sure the make the math and algorithms were correct, I had a MS Excel
-model of the correct results. I also inserted console.log statements to print out various variables / 
-arrays.  (which I removed for now to make the code cleaner).
-
-I will go back in the testing phase, add Jasmine tests to make sure, particularly in build rent 
-function that the search activity is being performed correctly.
-
-I also broke the code up in smaller modules, to make it  more readable.   I know this is my first pass 
-I can do more optimize the code, but I would curious to know what you think of it.   Also, I 
-would like to know what you think of it from a stylistic perspective so that I can develop good habits.
+javascript code in dashboard.js is used to populate this page and control it's editing 
+functions, such as when unit size is changed or new a tenant is chosen.  When the user
+selects a new tenant, the rent table is updated.
 
 
-# Next Steps
 
-In the next step, I will create plain web page that dynamically builds the tables to 
-to visualize and edit the object data and dispaly the results.
 
-From there I will build the graphs and retrieve some other info such as some USA bond quotes 
-using a API form the US Dept of Treasury.
+
+

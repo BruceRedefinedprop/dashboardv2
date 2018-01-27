@@ -32,12 +32,27 @@ terminalVal potential selling price by year
 
 */
 
-// defines and create fiscal years.
+/* defines and create fiscal years.  
+Initially, we need to defined Years object that corresponds to a fiscal year,
+rather than calender year.
+
+*/
 
 function Years(startDate, endDate) {
     this.startDate = startDate;
     this.endDate = endDate;
 }
+
+/*   
+buildModelYears accepts a value that corresponds to the length of the financial 
+model and returns an array Year objects that corresponds to the duration of the financial model
+study period e.g. 5 years, 20 years, etc...
+
+The start date tables the building purchase date, defined in the building object and
+starts the study period on the first day of the next month.  The end date is a year later.
+The Date.setFullYear changes the year by 1.  We need to subtract a day to the correct end date.
+
+*/
 
 function buildModelYears(duration) {
     this.duration = duration;

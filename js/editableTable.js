@@ -1,4 +1,13 @@
+/*
+_____________________________________________-
 
+arrayToTable is a function the accepts data array and object that defines additional
+attributes.  The function, accepts the data and additional attributes and builds the  code
+to be appended to the html file.  In this application, we use object to update attrs in default object
+
+______________________________________________
+
+*/
 
 
 var arrayToTable = function(data, options) {
@@ -62,6 +71,15 @@ var arrayToTable = function(data, options) {
 
     return table;
 };
+
+
+/*  buildSelect (tag, obj)  
+accepts a css tag that identifies the location of target select box and obj that is an
+array of data.  In this application we use ID to identify location on Tenant tab and the array
+is tenants array, an array of tenant objects.  We construct code that populated the select box's
+<option> tags, and appends to the designated location. 
+*/
+
 
 function buildSelect (tag, obj) {
     var opt = $(tag);

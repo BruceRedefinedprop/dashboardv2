@@ -17,6 +17,7 @@
  ++  when an input field on index.hmtl is changed, jquery is used recognize the change update
      appropriate array and / or object.   This function also redisplays the data in formated text.
  ++  functions to take stored values and display on each context tab
+ ++  XMLHttpRequest code to retrieve the value of the US treasury bond.
 
 */
 
@@ -201,6 +202,7 @@ $('#tenantListdpdwn').change(function() {
     buildTenantRentTbl(tntIdx);
 });
 
+
 // on tenant tab, on a change, the tenant unit value is saved.
 // and the display text is reformated.  
 
@@ -360,6 +362,7 @@ The key functions are:
  + setLoanHtml(loan)
  + dt_formater(dateText)
  + rentArrayBuilder(bldgArray, header)
+ + buildTenantRentTbl(i)
 
 -------------------------------------------------------------------
 */
@@ -390,9 +393,6 @@ function setBuildingHtml(building) {
 accepts a loan object and sets value of input fields on the laon tab.
 
 */
-
-
-
 
 function setLoanHtml(loan) {
     $('#loanBank').val(loan.bank);
@@ -447,7 +447,20 @@ function rentArrayBuilder(bldgArray, header) {
 }
 
 
+/*  
+buildTenantRentTbl(i) builds the rent table on Tenant tab.  It accepts, the index of
+the select box value to determine which tenant object to use.  As a reminder, the tenant array
+that is comprised of tenant objects.
 
+When this function is called when (1) when the web page is initally set up (2). the reset button on the
+tenant tab is pressed or (3) when select box is changed.
+
+The function updates unit size displayed on the webpage and formats it.    It then clears the rent
+table, and uses the rentArrayBuilder function to create the array, passising it the both the current
+array value based on the index of select box and table header as an array.  This array is 
+required by arrayToTable function in editabeTable.js to create the html code for the table.
+The html code is appended to htim at the tag with tenant-table id.
+*/
 
 function buildTenantRentTbl(i) {
     // $('#bldgName').val(building.bldgName);
@@ -464,16 +477,40 @@ function buildTenantRentTbl(i) {
     $('#tenant-table').append(Renttable);
 
 }
+/*  
+---------------------------------------------------
+The functions below below loads values into the index.html when the page loads.
+
+new funcitons defined are:
++ buildExpTab(exp)
 
 
+____________________________________________________
 
+*/
+
+
+/* 
+builds the expense table for tenant at index 0 of tenant's select box.
+It also updates value of the expense growth input field.
+*/
 buildTenantRentTbl(0);
+
+
+// a helper funciton that accepts a number and converts a formated text
+// as a percent value.  numeral.js is used for format the text.
 
 function buildExpTab(exp) {
     $('#expGrw').val(numeral(exp).format('0.0%'));
 }
 
-
+/*
+expArrayBuilder(exp, header) is a helper function that creates an 2 dimensional array where 
+there first element of the array is a header, remaining elements of the array are expense objects.
+The expense object includes property name and currency amount representing type of expenses and it's
+year 1 total for that expense.  The function returns an array that used by arrayToTable to build
+expense tab's expense table.
+*/
 
 
 function expArrayBuilder(exp, header) {
@@ -490,24 +527,42 @@ function expArrayBuilder(exp, header) {
     return expData;
 };
 
+// Builds expData array, by first defining the header and using the expenses array and the header
+// to create the array to feed into the arrayToTable function.
+
 var expHeader = ["Expense", "Amount"];
 var expData = expArrayBuilder(expenses, expHeader);
 
 
 
-
+ // load  initial values for the building tab.
 setBuildingHtml(bldgDiversey);
+
+// load initial values for the select box on the tenants page.
+
 buildSelect('#tenantListdpdwn', tenants);
+
+// load initial value on the expense tab.
 buildExpTab((expenses.growth));
+
+// load initial values on the financing tab.
 setLoanHtml(divLoan);
 
+// build the html code for the expense table, on the expense tab.
 var ExpTable = arrayToTable(expData, {
     thead: true,
     attrs: { class: 'table' }
 })
 
-
+// appends htlm code to expenses tab's table area.
 $('#exp-table').append(ExpTable);
+
+
+/*
+code from www.commercialloandirect.com to retrieve from the website, the current value
+US 5, 7, 10 year treasury bond.  These values are typically used to compare the spread
+against a buildings loan rate.
+*/
 
 function loadXMLDoc() {
     var e;

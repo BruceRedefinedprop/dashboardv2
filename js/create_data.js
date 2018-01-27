@@ -110,7 +110,34 @@ function roundToTwo(num) {
 }
 
 // builds data for two tenants, as per the specification
-// Tenant 1 hard coded data
+// Tenant 1 hard coded data.    
+
+// Note.   create a function to build this data.
+
+function buildRentDefault(startDate, startRent,rentGrw, periods) {
+    var rentAr = [];
+    for (var i = 0; i < periods; i++) {
+        rentAr[i] = new Rent();
+        rentAr[i].startDate = new Date(startDate);
+        // rentAr[i].endDate = ;
+    }
+    
+}
+
+function buildTenantDefault(name, unit_size, startRent, rentGrw, periods) {
+    newTenant = new Tenant();
+    newTenant.name = name;
+    newTenant.unit_size = unit_size;
+    var startDate = startDate;
+    var rentGrw = rentGrw;
+    var periods = periods;
+    
+    buildRentDefault(startDate, rentGrw, periods);
+
+    
+}
+
+
 {
     var tenants = [];
     tenants[0] = new Tenant();
