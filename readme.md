@@ -111,6 +111,19 @@ The javascript programs developed include:
 ... this logic since it only uses local browser storage and seem of little practical use for this
 ... application and had the potential to create confusion for a user.
 
+* dashboard.js - The Dashboard module main program the updates to index.html to add and change 
+... information about a real estate investment including  details about the building size and 
+... locaiton, it's tenants and rent the they pay, operating expenses and financing 
+... It also controls the refreshing of all performance metrics and creation of Dashboard 
+... graphs that display various performance metrics as well as ajax to retrieve current bond rates.
+... Note:  The site that I use to retrieve bond rates, meets the needs of this assignment and its free,
+... it's data does not timely as the final application will require.
+...
+... Futhermore this script use Jquery to set up event listenerns such that when a html input 
+... field changes,  that change is recorded and the approrpiate object is updated.  Other event
+,,, listenerns are set up to manage the tab buttons.   The code's documentation project implementation
+... details.
+ 
 
 * dshbd_metrics.js - use the data stored in the various objects, processes the data, ulimately,
 ... producing arrays that define the model year, revenue, expenes, NOI, cash-on-cash,
@@ -118,9 +131,49 @@ The javascript programs developed include:
 ... in the code.   The main funcitons in this file invoked and all metrics updated prior to
 ... to the Dashboard graphs being generated.
 
+* dshbd_charts.js -  use standard Google Charts template code to generate the various charts.
+... There was some additonal coding required to format arrays built-up in dshdb_metrics.js
+... into the format required by Google Charts.
+
+* Date.js is an open source library that is designed to make manulating date / time easier such as
+... adding 1 year to date as well as converting back and forth between formated text and
+... date format.
 
 
+* Amort.js is an open source tools for caculating debt payments and building amortization tables.
+... there might be more robust library for this funciton, but the purposes of this assignment, 
+... it is adequate and does the math correctly.
+
+* editableTable.js was code snipet that I found on web search and simplified for my purposes.
+
+* expected results.xlsx is an MS Excel spreadsheet that shows expected test results
+... for various tenant, rent tables and debt service caculations.
 
 
+# Testing
+
+The testing methodology used is the following:
+
+1.  Valudate that preload data creates project objects and arrays.  This achieved by
+using console to visually inspect the objects and arrays 
+
+2. valuate that base data key metrics were updated correctly.   To support this activity, 
+a test an excel spreadsheet of expected results was built.  This spreadsheet can also be used
+for later testing to test results and data is changed.  The console was used to inspect,
+outcome arrays produced by dshbd_metrics.js.
+
+3. (to be create) Jasmine tests were used to test more complex, javascript functions
+in dashboard.js  and dshbd_metrics.js to ensure as data changes, the expected are achieved.
+The excel was used to caculate and veriy the expected results.
+
+4. Each tab's input fields were tested to ensure that when an field was changed, 
+that data was recorded in the proper array or object.  Futhermore, when the Dashboard button
+was clicked, dshbd_metrics.js outcome arrays were verified through inspection to validate
+that they were updated with the new data and produced the desired results.  This funcdtion
+was also tested by inspecting the Dashboard graphs, which while not exact did show results
+close enough to demonatration that application was working.  jasmine was also used to verify 
+the results.
+
+5. Dashboard graphs were inspected against expected result, as defined by the Excel Spreadsheet.
 
 
