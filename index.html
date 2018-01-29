@@ -52,44 +52,47 @@
 
     <!--Dashboard Sub-menu-->
     <div class="container-wrapper navbar-submenu">
-        <div class="container content-container">
-            <ul id="nav-submenu" class="nav nav-pills">
-                <li class=" nav-building"><a href="#">Building</a></li>
-                <li class="nav-tenants"><a href="#">Tenants</a></li>
-                <li class="nav-expenses"><a href="#">Expenses</a></li>
-                <li class="nav-loan"><a href="#">Financing</a></li>
-                <li class="nav-dashboard"><a href="#">Dashboard</a></li>
-            </ul>
+        <div class="container-fluid content-container center-block">
+            <div class="row">
+                <ul id="nav-submenu" class="nav nav-pills">
+                    <li class=" nav-building"><a href="#">Building</a></li>
+                    <li class="nav-tenants"><a href="#">Tenants</a></li>
+                    <li class="nav-expenses"><a href="#">Expenses</a></li>
+                    <li class="nav-loan"><a href="#">Financing</a></li>
+                    <li class="nav-dashboard"><a href="#">Dashboard</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <!--Building Info Form-->
     <div class="container" id="building">
-
-        <h2 class="dshbrd-header">Building</h2>
-
-        <form class="form-horizontal">
-            <div class="group-1">
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="bldgName">Name:</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="bldgName" placeholder="Enter Building Name">
+        <div class="row">
+            <h2 class="dshbrd-header center-block">Building</h2>
+        </div>
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="group-1">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="bldgName">Name:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="bldgName" placeholder="Enter Building Name">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="bldgAddr">Address:</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="bldgAddr" placeholder="Enter Street Address">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="bldgAddr">Address:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="bldgAddr" placeholder="Enter Street Address">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="bldgCity">City:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="bldgCity" placeholder="Enter City" name="bldgCity">
-                    </div>
-                    <label class="control-label col-sm-1" for="bldgSt">St:</label>
-                    <div class="col-sm-1">
-                        <select class="form-control" id="bldgSt">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="bldgCity">City:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="bldgCity" placeholder="Enter City" name="bldgCity">
+                        </div>
+                        <label class="control-label col-sm-1" for="bldgSt">St:</label>
+                        <div class="col-sm-1">
+                            <select class="form-control" id="bldgSt">
                         <option <v></v>alue="AL">AL</option>
                     	<option value="AK">AK</option>
                     	<option value="AR">AR</option>	
@@ -142,99 +145,131 @@
                     	<option value="WV">WV</option>
                     	<option value="WY">WY</option>
                     </select>
-                    </div>
-                    <label class="control-label col-sm-2" for="bldgZip">Zip Code:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="bldgZip" placeholder="Enter Zip Code" pattern="[0-9]{5}">
+                        </div>
+                        <label class="control-label col-sm-2" for="bldgZip">Zip Code:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="bldgZip" placeholder="Enter Zip Code" pattern="[0-9]{5}">
+                        </div>
                     </div>
                 </div>
+                <div class="group-2">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="bldgSize">Property Size:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="bldgSize" placeholder="Enter Size SF">
+                        </div>
+                        <label class="control-label col-sm-2" for="bldgClosing">Closing Costs:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="bldgClosing" placeholder="$ Closing Cost">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="bldgPrice">Purchase Price:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="bldgPrice" placeholder="Enter Purchase Price">
+                        </div>
+                        <label class="control-label col-sm-2" for="bldgImprovements">Improvements:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="bldgImprovements" placeholder="$ Improvements">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="bldgPurDate">Purchase Date:</label>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" id="bldgPurDate" value="2017-01-01" />
+                        </div>
+                        <label class="control-label col-sm-2" for="bldgTermCap">Terminal Cap:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="bldgTermCap" placeholder="Enter Terminal Cap%">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button id="resetbtn" type="button" class="btn btn-primary resetbtn">Reset</button>
             </div>
-            <div class="group-2">
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="bldgSize">Property Size:</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="bldgSize" placeholder="Enter Size SF">
-                    </div>
-                    <label class="control-label col-sm-2" for="bldgClosing">Closing Costs:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="bldgClosing" placeholder="$ Closing Cost">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="bldgPrice">Purchase Price:</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="bldgPrice" placeholder="Enter Purchase Price">
-                    </div>
-                    <label class="control-label col-sm-2" for="bldgImprovements">Improvements:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="bldgImprovements" placeholder="$ Improvements">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="bldgPurDate">Purchase Date:</label>
-                    <div class="col-sm-3">
-                        <input type="date" class="form-control" id="bldgPurDate" value = "2017-01-01"/>
-                    </div>
-                    <label class="control-label col-sm-2" for="bldgTermCap">Terminal Cap:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="bldgTermCap" placeholder="Enter Terminal Cap%">
-                    </div>
-                </div>
-            </div>
-        </form>
-        <button id="resetbtn" type="button" class="btn btn-primary resetbtn">Reset</button>
+        </div>
     </div>
 
     <!--Tenant Info Form-->
     <div class="container" id="tenant">
-        <h2 class="dshbrd-header">Tenants</h2>
-        <form class="form-horizontal">
-            <div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="tenantSize">Unit Size (SF):</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="tenantSize" placeholder="Enter Tenant Unit Size SF">
-                    </div>
-                    <label class="control-label col-sm-1" for="tenantList">Tenants</label>
-                    <div class="col-sm-2">
-                        <select class="form-control" id="tenantListdpdwn">
+        <div class="row">
+            <h2 class="dshbrd-header">Tenants</h2>
+        </div>
+        <div class="row">
+            <form class="form-horizontal">
+                <div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="tenantSize">Unit Size (SF):</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="tenantSize" placeholder="Enter Tenant Unit Size SF">
+                            </div>
+                            <label class="control-label col-sm-1" for="tenantList">Tenants</label>
+                            <div class="col-sm-2">
+                                <select class="form-control" id="tenantListdpdwn">
                         <!--<option value=0>Tenant 1</option>-->
                         <!--<option value=1>Tenant 2</option>-->
-                    </select>
+                            </select>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
+                <div class="row">
+                    <div id="tenant-table" class="table table-responsive"> </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button id="resetbtn2" type="button" class="btn btn-primary resetbtn">Reset</button>
             </div>
-            <div id="tenant-table"> </div>
-        </form>
-        <button id="resetbtn" type="button" class="btn btn-primary resetbtn">Reset</button>
+        </div>
     </div>
 
 
-   
+
 
     <!--Expense Info Form-->
     <div class="container" id="expenses">
-        <h2 class="dshbrd-header">Expenses</h2>
-        <form class="form-horizontal">
-            <div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="expGrw">Expense Growth Rate %:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="expGrw" placeholder="Enter Expense Growth Rate %">
+        <div class="row">
+            <h2 class="dshbrd-header">Expenses</h2>
+        </div>
+        <div class="row">
+            <form class="form-horizontal">
+                <div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="expGrw">Expense Growth Rate %:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="expGrw" placeholder="Enter Expense Growth Rate %">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="exp-table">
+                <div id="exp-table">
 
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button id="resetbtn3" type="button" class="btn btn-primary resetbtn">Reset</button>
             </div>
-        </form>
-        <button id="resetbtn" type="button" class="btn btn-primary resetbtn">Reset</button>
+        </div>
+
+
+
     </div>
 
     <!--Financing Info Form-->
     <div class="container" id="loan">
-        <h2 class="dshbrd-header">Financing</h2>
-        <form class="form-horizontal">
+        <div class="row">
+             <h2 class="dshbrd-header">Financing</h2>
+        </div>
+        <div class="row">
+            <form class="form-horizontal">
             <div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="loanBank">Bank:</label>
@@ -271,9 +306,22 @@
                 </div>
             </div>
         </form>
-        <div id="KeyMarketRates"></div>
+        </div>
+        
+        <div class = "row">
+            <div class="col-sm-4  col-sm-offset-4">
+                <div id="KeyMarketRates"></div>
+            </div>
+        </div>
+        
         <br>
-         <button id="resetbtn" type="button" class="btn btn-primary resetbtn">Reset</button>
+        <div class="row">
+            <div class="text-center">
+                <button id="resetbtn4" type="button" class="btn btn-primary resetbtn">Reset</button> 
+            </div>
+           
+        </div>
+
     </div>
 
     <!--Dashboard-->

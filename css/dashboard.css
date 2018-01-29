@@ -3,6 +3,7 @@
 .dshbrd-header {
     text-align: center;
     margin-bottom: 30px;
+    margin-left: 40px;
     width: 80%;
 }
 
@@ -13,7 +14,7 @@
 
 .navbar-submenu {
     text-align: center;
-    margin-left: 15px;
+    margin-left: 40px;
     width:80%;
 }
 
@@ -24,7 +25,14 @@
 
 
 /*Tab Styles*/
-    
+#building .button  {
+     text-align: center;
+}  
+
+#building {
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
     
 #tenant {
     display: none;
@@ -43,3 +51,29 @@
     display: none;
 }
 
+#resetbtn {
+    margin-right: 90px;
+    margin-top: 60px;
+}
+
+#resetbtn2 {
+    margin-right: 120px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+#resetbtn3 {
+    margin-right: 120px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+#resetbtn4 {
+    margin-right: 100px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+#KeyMarketRates {
+    margin-top: 40px;
+}
