@@ -207,10 +207,12 @@ $('#tenantListdpdwn').change(function() {
 // and the display text is reformated.  
 
 $('#tenantSize').change(function() {
+    $('#tenant-table').empty();
     var tntIdx = Number($('#tenantListdpdwn').val());
     var size = $('#tenantSize').val();
     tenants[tntIdx].unit_size = (numeral(size)._value);
     $('#tenantSize').val(numeral(size).format('0,0'));
+    buildTenantRentTbl(tntIdx);
 });
 
 // on the expense tab, on a change, the new expanses growth rate is
@@ -325,6 +327,7 @@ $('#bldgPrice').change(function() {
     var vlu = $('#bldgPrice').val();
     current_building.purchasePrice = numeral(vlu)._value;
     $('#bldgPrice').val(numeral(vlu).format('$0,0'));
+    current_loan.loan = current_building.purchasePrice * .75;
 });
 
 // on the building tab, on a change, the new improvements costs is stored.
