@@ -238,6 +238,7 @@ $('#loanAmount').change(function() {
     var loan = $('#loanAmount').val();
     current_loan.loan = numeral(loan)._value;
     $('#loanAmount').val(numeral(loan).format('$0,0'));
+    
 });
 
 // on the loan tab, on a change, the new loan term in years is

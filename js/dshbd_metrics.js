@@ -124,7 +124,7 @@ function buildYearRent(start) {
         else {
             compDate = compDate.add(1).month();
         }
-        console.log("compDate:" + compDate);
+        // console.log("compDate:" + compDate);
 
         yearRent[i] = getRent(compDate, tenants)
     }

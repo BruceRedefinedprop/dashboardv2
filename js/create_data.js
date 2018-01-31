@@ -65,7 +65,7 @@ function Building(bldgName, stAddress, city, state, zip, country, purchasePrice,
     bldgDiversey.terminalCap = .065;
     bldgDiversey.bldgSize = 50000;
     current_building = Object.assign({}, bldgDiversey);
-    // current_building = bldgDiversey;
+     
 }
 // Building Tenants and rent data.  In a final projects
 // tenant object would be part of buildings object.
